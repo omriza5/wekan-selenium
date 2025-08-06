@@ -1,8 +1,4 @@
-import os
 from selenium.webdriver.common.by import By
-
-WEKAN_URL = os.environ.get('WEKAN_URL', 'http://10.0.0.17/sign-in')
-
 class LoginPage:
     def __init__(self, driver):
         self.driver = driver
@@ -10,7 +6,7 @@ class LoginPage:
         self.password_textbox = (By.ID, 'at-field-password')
         self.login_button = (By.ID, 'at-btn')
     
-    def open_page(self, url=WEKAN_URL):
+    def open_page(self, url):
         self.driver.get(url)
     
     def enter_username(self, username):
@@ -31,8 +27,12 @@ class LoginPage:
         error_message = self.driver.find_element(By.XPATH, "//p[contains(text(), 'Login forbidden')]")
         return error_message.text if error_message else None
 
-    def login(self, username, password):
-        self.open_page()
+    def login_with_valid_credentials(self, username, password, url):
+        self.open_page(url)
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()
+    
+        # Lazy import to avoid circular dependency
+        from pages.home_page import HomePage
+        return HomePage(self.driver)
