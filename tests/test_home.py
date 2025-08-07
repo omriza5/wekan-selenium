@@ -1,10 +1,10 @@
 import unittest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 import time
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from utils.config import Config
+from pages.board_page import BoardPage
 
 class TestLogin(unittest.TestCase):
     def setUp(self):
@@ -22,3 +22,45 @@ class TestLogin(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
         self.assertTrue(self.home_page.is_header_displayed(), "Header is not displayed on the home page.")
+    
+    def test_board_creation(self):
+        """
+        This method tests the creation of a board.
+        """
+        login_page = LoginPage(self.driver)
+        board_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .create_board("Test Board"))
+        self.assertIsInstance(board_page, BoardPage, "board_page is not an instance of BoardPage")
+    
+    def test_add_list_to_board(self):
+        """
+        This method tests adding a list to a board.
+        """
+        login_page = LoginPage(self.driver)
+        board_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .create_board("Test Board - with lists")
+                      .add_list("To Do")
+                      .add_list("In Progress")
+                      .add_list("Done"))
+        
+        list_names = board_page.get_list_names()
+        for expected in ["To Do", "In Progress", "Done"]:
+            self.assertIn(expected, list_names, f"List '{expected}' was not found on the board.")
+            
+    def test_add_card_to_list(self):
+        """
+        This method tests adding a card to a list.
+        """
+        login_page = LoginPage(self.driver)
+        board_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .create_board("Test Board")
+                      .add_list("To Do")
+                      .add_card_to_bottom("To Do", "Implement feature X"))
+
+        # Verify the card was added
+        card_titles = board_page.get_list_cards_titles("To Do")
+        time.sleep(5)
+        self.assertIn("Implement feature X", card_titles, "Card was not added to the list.")
