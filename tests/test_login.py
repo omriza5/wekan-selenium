@@ -2,10 +2,11 @@ import unittest
 from selenium import webdriver
 from pages.login_page import LoginPage
 from utils.config import Config
-
+from utils.selenium_config import get_chrome_options
 class TestLogin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        options = get_chrome_options()
+        self.driver = webdriver.Chrome(options=options)
         self.driver.implicitly_wait(10)
         self.login_page = LoginPage(self.driver)
         
