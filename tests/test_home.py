@@ -5,10 +5,12 @@ from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from utils.config import Config
 from pages.board_page import BoardPage
+from utils.selenium_config import get_chrome_options
 
 class TestLogin(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        options = get_chrome_options()
+        self.driver = webdriver.Chrome(options=options)
         self.home_page = HomePage(self.driver)
         self.driver.implicitly_wait(10)
     
@@ -62,5 +64,4 @@ class TestLogin(unittest.TestCase):
 
         # Verify the card was added
         card_titles = board_page.get_list_cards_titles("To Do")
-        time.sleep(5)
         self.assertIn("Implement feature X", card_titles, "Card was not added to the list.")

@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from pages.board_page import BoardPage
-
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
