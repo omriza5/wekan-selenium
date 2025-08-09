@@ -21,7 +21,7 @@ class HomePage:
     
     def create_board(self, board_title):
         wait = WebDriverWait(self.driver, 10)
-        borad_link =  wait.until(EC.element_to_be_clickable(self.add_board_link))
+        borad_link = self.driver.find_element(*self.add_board_link)
         borad_link.click()
         
         board_title_field = self.driver.find_element(*self.board_title_textbox)
