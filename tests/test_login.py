@@ -15,7 +15,7 @@ class TestLogin(unittest.TestCase):
 
     def test_page_health(self):
         self.login_page.open_page(Config.get_login_url())
-        self.assertIn(Config.URL_PATH, self.driver.current_url)
+        self.assertIn(Config.LOGIN_PATH_TEXT, self.driver.current_url)
 
     def test_login_with_valid_credentials(self):
         self.login_page.open_page(Config.get_login_url())
