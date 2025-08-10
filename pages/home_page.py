@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages.board_page import BoardPage
 class HomePage:
     def __init__(self, driver):
@@ -18,9 +20,6 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        # Set implicit wait to 10 seconds
-        # self.driver.implicitly_wait(50)
-        
         # Find and click the "Add Board" link
         borad_link = self.driver.find_element(*self.add_board_link)
         borad_link.click()
@@ -30,9 +29,9 @@ class HomePage:
         board_title_field.clear()
         board_title_field.send_keys(board_title)
         
-        # Find and click the "Create" button
-        # self.driver.implicitly_wait(50)
-        board_add_btn = self.driver.find_element(*self.add_board_btn)
+        # Explicitly wait for the "Create" button to be clickable
+        wait = WebDriverWait(self.driver, 50)  # Wait up to 10 seconds
+        board_add_btn = wait.until(EC.element_to_be_clickable(self.add_board_btn))
         board_add_btn.click()
         
         return BoardPage(self.driver)
