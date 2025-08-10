@@ -31,7 +31,7 @@ class HomePage:
         
         # Explicitly wait for the "Create" button to be clickable
         wait = WebDriverWait(self.driver, 50)  # Wait up to 10 seconds
-        board_add_btn = wait.until(EC.element_to_be_clickable(self.add_board_btn))
+        board_add_btn = wait.until(EC.element_to_be_clickable(*self.add_board_btn))
         board_add_btn.click()
         
         return BoardPage(self.driver)
