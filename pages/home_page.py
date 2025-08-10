@@ -20,8 +20,9 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        # Find and click the "Add Board" link
-        borad_link = self.driver.find_element(*self.add_board_link)
+        # Explicitly wait for the "Add Board" link to be present in the DOM
+        wait = WebDriverWait(self.driver, 50)  # Wait up to 50 seconds
+        borad_link = wait.until(EC.presence_of_element_located(self.add_board_link))
         borad_link.click()
         
         # Find and fill the board title field
@@ -29,8 +30,7 @@ class HomePage:
         board_title_field.clear()
         board_title_field.send_keys(board_title)
         
-        # Explicitly wait for the "Create" button to be clickable
-        wait = WebDriverWait(self.driver, 50)  # Wait up to 10 seconds
+        # Explicitly wait for the "Create" button to be present in the DOM
         board_add_btn = wait.until(EC.presence_of_element_located(self.add_board_btn))
         board_add_btn.click()
         
