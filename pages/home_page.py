@@ -11,7 +11,7 @@ class HomePage:
         self.password = "123456"
         self.add_board_link = (By.CLASS_NAME, "js-add-board")
         self.board_title_textbox = (By.CLASS_NAME, "js-new-board-title")
-        self.add_board_btn = (By.CSS_SELECTOR, "input.primary.wide[type='submit'][value='create']")
+        self.add_board_btn = (By.CSS_SELECTOR, "input.primary.wide[type='submit'][value='Create']")
     
     def is_header_displayed(self):
         """
@@ -23,7 +23,7 @@ class HomePage:
     def create_board(self, board_title):
         # Explicitly wait for the "Add Board" link to be present in the DOM]
         try:     
-            wait = WebDriverWait(self.driver, 10)  # Wait up to 20 seconds
+            wait = WebDriverWait(self.driver, 5)  # Wait up to 20 seconds
             board_link = wait.until(EC.presence_of_element_located(self.add_board_link))
             board_link.click()
             
@@ -34,7 +34,7 @@ class HomePage:
             
             # Explicitly wait for the "Create" button to be present in the DOM
             board_add_btn = wait.until(EC.presence_of_element_located(self.add_board_btn))
-            print(f"******** SEVENTH")
+            print(f"******** SEVENTH: ",board_add_btn)
             board_add_btn.click()
             return BoardPage(self.driver)
         except Exception as e:
