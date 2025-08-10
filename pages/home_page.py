@@ -1,3 +1,4 @@
+import time
 import traceback
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -21,28 +22,26 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        try:
-            # Directly find and click the "Add Board" link
-            board_link = self.driver.find_element(*self.add_board_link)
-            print(f"Clicking on the 'Add Board' link: {board_link.text}")
-            board_link.click()
-            
-            # Find and fill the board title field
-            board_title_field = self.driver.find_element(*self.board_title_textbox)
-            board_title_field.clear()
-            board_title_field.send_keys(board_title)
-            
-            # Press Enter after entering the board title
-            board_title_field.send_keys(u'\ue007')  # u'\ue007' is the Unicode for Enter key in Selenium
-            # Directly find and click the "Create" button
-            # board_add_btn = self.driver.find_element(*self.add_board_btn)
-            # board_add_btn.click()
-            
-            return BoardPage(self.driver)
-        except Exception as e:
-            print(f"Error occurred: {str(e)}")  # Get the error message
-            print(f"Error details: {repr(e)}")  # Get detailed error info
-            print(f"Error arguments: {e.args}")  # Get the arguments passed to the exception
-            traceback.print_exc()
+        
+        # Directly find and click the "Add Board" link
+        time.sleep(5)
+        board_link = self.driver.find_element(*self.add_board_link)
+        board_link.click()
+        
+        # Find and fill the board title field
+        time.sleep(5)
+        board_title_field = self.driver.find_element(*self.board_title_textbox)
+        board_title_field.clear()
+        board_title_field.send_keys(board_title)
+        
+        # Press Enter after entering the board title
+        # board_title_field.send_keys(u'\ue007')  
+        # Directly find and click the "Create" button
+        time.sleep(5)
+        board_add_btn = self.driver.find_element(*self.add_board_btn)
+        board_add_btn.click()
+        
+        return BoardPage(self.driver)
+    
 
 
