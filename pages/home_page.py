@@ -22,23 +22,17 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        
         # Directly find and click the "Add Board" link
-        time.sleep(5)
         board_link = self.driver.find_element(*self.add_board_link)
         board_link.click()
         
         # Find and fill the board title field
-        time.sleep(5)
         board_title_field = self.driver.find_element(*self.board_title_textbox)
         board_title_field.clear()
         board_title_field.send_keys(board_title)
         
-        # Press Enter after entering the board title
-        # board_title_field.send_keys(u'\ue007')  
-        # Directly find and click the "Create" button
-        time.sleep(5)
         board_add_btn = self.driver.find_element(*self.add_board_btn)
+        time.sleep(20)
         board_add_btn.click()
         
         return BoardPage(self.driver)
