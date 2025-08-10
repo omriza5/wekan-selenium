@@ -1,3 +1,4 @@
+import traceback
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,20 +22,31 @@ class HomePage:
     
     def create_board(self, board_title):
         # Explicitly wait for the "Add Board" link to be present in the DOM]
-        try:      
+        try:
+            print(f"******** FIRST")      
             wait = WebDriverWait(self.driver, 10)  # Wait up to 20 seconds
+            print(f"******** SECOND")
             board_link = wait.until(EC.presence_of_element_located(self.add_board_link))
+            print(f"******** THIRD")
             board_link.click()
             
             # Find and fill the board title field
+            print(f"******** FOURTH")
             board_title_field = self.driver.find_element(*self.board_title_textbox)
             board_title_field.clear()
+            print(f"******** FIFTH")
             board_title_field.send_keys(board_title)
             
             # Explicitly wait for the "Create" button to be present in the DOM
+            print(f"******** SIXTH")
             board_add_btn = wait.until(EC.presence_of_element_located(self.add_board_btn))
+            print(f"******** SEVENTH")
             board_add_btn.click()
+            return BoardPage(self.driver)
         except Exception as e:
-            print(f"******** An error occurred: {e}")
+                print(f"Error occurred: {str(e)}")  # Get the error message
+                print(f"Error details: {repr(e)}")  # Get detailed error info
+                print(f"Error arguments: {e.args}")  # Get the arguments passed to the exception
+                traceback.print_exc()
 
-        return BoardPage(self.driver)
+
