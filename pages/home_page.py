@@ -32,9 +32,11 @@ class HomePage:
             board_title_field.clear()
             board_title_field.send_keys(board_title)
             
+            # Press Enter after entering the board title
+            board_title_field.send_keys(u'\ue007')  # u'\ue007' is the Unicode for Enter key in Selenium
             # Directly find and click the "Create" button
-            board_add_btn = self.driver.find_element(*self.add_board_btn)
-            board_add_btn.click()
+            # board_add_btn = self.driver.find_element(*self.add_board_btn)
+            # board_add_btn.click()
             
             return BoardPage(self.driver)
         except Exception as e:
