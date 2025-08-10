@@ -21,10 +21,10 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        # Explicitly wait for the "Add Board" link to be present in the DOM]
-        try:     
-            wait = WebDriverWait(self.driver, 10)  # Wait up to 20 seconds
-            board_link = wait.until(EC.presence_of_element_located(self.add_board_link))
+        try:
+            # Directly find and click the "Add Board" link
+            board_link = self.driver.find_element(*self.add_board_link)
+            print(f"Clicking on the 'Add Board' link: {board_link.text}")
             board_link.click()
             
             # Find and fill the board title field
@@ -32,15 +32,15 @@ class HomePage:
             board_title_field.clear()
             board_title_field.send_keys(board_title)
             
-            # Explicitly wait for the "Create" button to be present in the DOM
-            board_add_btn = wait.until(EC.presence_of_element_located(self.add_board_btn))
-            print(f"******** SEVENTH: ",board_add_btn)
+            # Directly find and click the "Create" button
+            board_add_btn = self.driver.find_element(*self.add_board_btn)
             board_add_btn.click()
+            
             return BoardPage(self.driver)
         except Exception as e:
-                print(f"Error occurred: {str(e)}")  # Get the error message
-                print(f"Error details: {repr(e)}")  # Get detailed error info
-                print(f"Error arguments: {e.args}")  # Get the arguments passed to the exception
-                traceback.print_exc()
+            print(f"Error occurred: {str(e)}")  # Get the error message
+            print(f"Error details: {repr(e)}")  # Get detailed error info
+            print(f"Error arguments: {e.args}")  # Get the arguments passed to the exception
+            traceback.print_exc()
 
 
