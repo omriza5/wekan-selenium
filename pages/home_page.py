@@ -19,7 +19,7 @@ class HomePage:
     
     def create_board(self, board_title):
         # Set implicit wait to 10 seconds
-        # self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(50)
         
         # Find and click the "Add Board" link
         borad_link = self.driver.find_element(*self.add_board_link)
@@ -31,7 +31,7 @@ class HomePage:
         board_title_field.send_keys(board_title)
         
         # Find and click the "Create" button
-        # self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(50)
         board_add_btn = self.driver.find_element(*self.add_board_btn)
         board_add_btn.click()
         
