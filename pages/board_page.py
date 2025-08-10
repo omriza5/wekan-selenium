@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 class BoardPage:
     def __init__(self, driver):
         self.driver = driver
+        self.driver.implicitly_wait(10)
         self.add_list_button = (By.CSS_SELECTOR, "a.open-list-composer.js-open-inlined-form[title='Add List']")
         self.list_title_textbox = (By.CSS_SELECTOR, "input.list-name-input.full-line")
         self.save_list_button = (By.CSS_SELECTOR, "button.primary.confirm[type='submit']")
