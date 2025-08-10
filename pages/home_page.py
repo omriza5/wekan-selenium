@@ -23,7 +23,7 @@ class HomePage:
     def create_board(self, board_title):
         # Explicitly wait for the "Add Board" link to be present in the DOM]
         try:     
-            wait = WebDriverWait(self.driver, 5)  # Wait up to 20 seconds
+            wait = WebDriverWait(self.driver, 20)  # Wait up to 20 seconds
             board_link = wait.until(EC.presence_of_element_located(self.add_board_link))
             board_link.click()
             
