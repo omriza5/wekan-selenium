@@ -6,7 +6,7 @@ from pages.login_page import LoginPage
 from utils.config import Config
 from pages.board_page import BoardPage
 from utils.selenium_config import get_chrome_options
-from utils.screenshot import take_screenshot  # Updated import
+  
 
 class TestLogin(unittest.TestCase):
     def setUp(self):
