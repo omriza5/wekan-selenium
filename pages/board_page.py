@@ -8,8 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class BoardPage:
     def __init__(self, driver):
         self.driver = driver
-        self.driver.implicitly_wait(20)
-        self.driver.set_page_load_timeout(60)
+        self.driver.implicitly_wait(10)
         self.add_list_button = (By.XPATH, "//div[@class='list-header-add']/a[contains(@class, 'open-list-composer') and contains(@class, 'js-open-inlined-form') and @title='Add List']")
         self.list_title_textbox = (By.CSS_SELECTOR, "input.list-name-input.full-line")
         self.save_list_button = (By.CSS_SELECTOR, "button.primary.confirm[type='submit']")
@@ -26,7 +25,8 @@ class BoardPage:
         """
         take_screenshot(self.driver, "before_add_list")
         # wait = WebDriverWait(self.driver, 10)
-        # time.sleep(10)
+        time.sleep(60)
+        take_screenshot(self.driver, "after sleeping")
         add_list_btn = self.driver.find_element(*self.add_list_button)
         add_list_btn.click()
         take_screenshot(self.driver, "after_click_add_list")
