@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 from pages.board_page import BoardPage
 
@@ -30,7 +31,7 @@ class HomePage:
         
         board_add_btn = self.driver.find_element(*self.add_board_btn)
         board_add_btn.click()
-        
+        time.sleep(10)
         return BoardPage(self.driver)
     
 
