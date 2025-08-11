@@ -32,7 +32,6 @@ class HomePage:
         board_title_field.send_keys(board_title)
         
         board_add_btn = self.driver.find_element(*self.add_board_btn)
-        time.sleep(20)
         board_add_btn.click()
         
         return BoardPage(self.driver)
