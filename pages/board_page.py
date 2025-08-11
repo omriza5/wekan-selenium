@@ -1,3 +1,4 @@
+from time import time
 from selenium.webdriver.common.by import By
 
 from utils.screenshot import take_screenshot
@@ -24,8 +25,8 @@ class BoardPage:
         """
         take_screenshot(self.driver, "before_add_list")
         wait = WebDriverWait(self.driver, 10)
-        self.driver.refresh()
-        add_list_btn = wait.until(EC.presence_of_element_located(self.add_list_button))
+        time.sleep(10)
+        add_list_btn = self.driver.find_element(*self.add_list_button)
         add_list_btn.click()
         take_screenshot(self.driver, "after_click_add_list")
         list_title = self.driver.find_element(*self.list_title_textbox)
