@@ -24,7 +24,7 @@ class BoardPage:
         """
         take_screenshot(self.driver, "before_add_list")
         wait = WebDriverWait(self.driver, 50)
-        add_list_btn = wait.until(EC.visibility_of_element_located(self.add_list_button))
+        add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
         take_screenshot(self.driver, "after waiting for add_list_btn")
         add_list_btn.click()
         take_screenshot(self.driver, "after_click_add_list")
