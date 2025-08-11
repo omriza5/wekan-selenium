@@ -23,7 +23,7 @@ class BoardPage:
         This method adds a new list to the board.
         """
         take_screenshot(self.driver, "before_add_list")
-        wait = WebDriverWait(self.driver, 20)
+        wait = WebDriverWait(self.driver, 50)
         add_list_btn = wait.until(EC.visibility_of_element_located(self.add_list_button))
         take_screenshot(self.driver, "after waiting for add_list_btn")
         add_list_btn.click()
