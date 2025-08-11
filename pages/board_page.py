@@ -24,7 +24,7 @@ class BoardPage:
         """
         take_screenshot(self.driver, "before_add_list 1")
         # wait = WebDriverWait(self.driver, 10)
-        time.sleep(60)
+        time.sleep(10)
         take_screenshot(self.driver, "after sleeping")
         time.sleep(10)
         add_list_btn = self.driver.find_element(*self.add_list_button)
