@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+from utils.screenshot import take_screenshot
+
 class BoardPage:
     def __init__(self, driver):
         self.driver = driver
@@ -18,8 +20,10 @@ class BoardPage:
         """
         This method adds a new list to the board.
         """
+        take_screenshot(self.driver, "before_add_list")
         add_list_btn = self.driver.find_element(*self.add_list_button)
         add_list_btn.click()
+        take_screenshot(self.driver, "after_click_add_list")
         list_title = self.driver.find_element(*self.list_title_textbox)
         list_title.send_keys(list_name)
         save_btn = self.driver.find_element(*self.save_list_button)
