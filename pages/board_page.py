@@ -8,7 +8,7 @@ class BoardPage:
     def __init__(self, driver):
         self.driver = driver
         self.driver.implicitly_wait(10)
-        self.add_list_button = (By.XPATH, "//div[@class='list-header-add']/a[contains(@class, 'open-list-composer') and contains(@class, 'js-open-inlined-form') and @title='Add List']")
+        self.add_list_button = (By.CSS_SELECTOR, ".open-list-composer.js-open-inlined-form")
         self.list_title_textbox = (By.CSS_SELECTOR, "input.list-name-input.full-line")
         self.save_list_button = (By.CSS_SELECTOR, "button.primary.confirm[type='submit']")
         self.close_list_dialog_button = (By.CSS_SELECTOR, ".fa-times-thin")
