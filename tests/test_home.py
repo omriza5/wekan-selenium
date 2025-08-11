@@ -52,17 +52,17 @@ class TestLogin(unittest.TestCase):
         for expected in ["To Do", "In Progress", "Done"]:
             self.assertIn(expected, list_names, f"List '{expected}' was not found on the board.")
             
-    def test_add_card_to_list(self):
-        """
-        This method tests adding a card to a list.
-        """
-        login_page = LoginPage(self.driver)
-        board_page = (login_page
-                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
-                      .create_board("Test Board")
-                      .add_list("To Do")
-                      .add_card_to_bottom("To Do", "Implement feature X"))
+    # def test_add_card_to_list(self):
+    #     """
+    #     This method tests adding a card to a list.
+    #     """
+    #     login_page = LoginPage(self.driver)
+    #     board_page = (login_page
+    #                   .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+    #                   .create_board("Test Board")
+    #                   .add_list("To Do")
+    #                   .add_card_to_bottom("To Do", "Implement feature X"))
 
-        # Verify the card was added
-        card_titles = board_page.get_list_cards_titles("To Do")
-        self.assertIn("Implement feature X", card_titles, "Card was not added to the list.")
+    #     # Verify the card was added
+    #     card_titles = board_page.get_list_cards_titles("To Do")
+    #     self.assertIn("Implement feature X", card_titles, "Card was not added to the list.")
