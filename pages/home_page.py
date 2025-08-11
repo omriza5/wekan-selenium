@@ -13,7 +13,7 @@ class HomePage:
         self.password = "123456"
         self.add_board_link = (By.CLASS_NAME, "js-add-board")
         self.board_title_textbox = (By.CLASS_NAME, "js-new-board-title")
-        self.add_board_btn = (By.CSS_SELECTOR, "input[value='Create']")
+        self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
     
     def is_header_displayed(self):
         """
