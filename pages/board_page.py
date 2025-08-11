@@ -22,20 +22,25 @@ class BoardPage:
         """
         This method adds a new list to the board.
         """
-        take_screenshot(self.driver, "before_add_list")
-        wait = WebDriverWait(self.driver, 100)
-        add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
-        take_screenshot(self.driver, "after waiting for add_list_btn")
-        add_list_btn.click()
-        take_screenshot(self.driver, "after_click_add_list")
-        list_title = self.driver.find_element(*self.list_title_textbox)
-        list_title.send_keys(list_name)
-        save_btn = self.driver.find_element(*self.save_list_button)
-        save_btn.click()
-        close_dialog_btn = self.driver.find_element(*self.close_list_dialog_button)
-        close_dialog_btn.click()
-        
-        return self
+        try:
+            take_screenshot(self.driver, "before_add_list")
+            wait = WebDriverWait(self.driver, 30)
+            add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
+            take_screenshot(self.driver, "after waiting for add_list_btn")
+            add_list_btn.click()
+            take_screenshot(self.driver, "after_click_add_list")
+            list_title = self.driver.find_element(*self.list_title_textbox)
+            list_title.send_keys(list_name)
+            save_btn = self.driver.find_element(*self.save_list_button)
+            save_btn.click()
+            close_dialog_btn = self.driver.find_element(*self.close_list_dialog_button)
+            close_dialog_btn.click()
+            
+            return self
+        except Exception as e:
+            take_screenshot(self.driver, "error_during_add_list")
+            print(f"Error adding list '{list_name}': {e}")
+            
     
     def get_list_names(self):
         elements = self.driver.find_elements(*self.list_name_elements)
