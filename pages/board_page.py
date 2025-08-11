@@ -22,7 +22,7 @@ class BoardPage:
         """
         This method adds a new list to the board.
         """
-        take_screenshot(self.driver, "before_add_list")
+        take_screenshot(self.driver, "before_add_list 1")
         # wait = WebDriverWait(self.driver, 10)
         time.sleep(60)
         take_screenshot(self.driver, "after sleeping")
