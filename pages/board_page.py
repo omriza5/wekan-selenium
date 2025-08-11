@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 
 from utils.screenshot import take_screenshot
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class BoardPage:
     def __init__(self, driver):
@@ -21,7 +23,8 @@ class BoardPage:
         This method adds a new list to the board.
         """
         take_screenshot(self.driver, "before_add_list")
-        add_list_btn = self.driver.find_element(*self.add_list_button)
+        wait = WebDriverWait(self.driver, 10)
+        add_list_btn = wait.until(EC.presence_of_element_located(self.add_list_button))
         add_list_btn.click()
         take_screenshot(self.driver, "after_click_add_list")
         list_title = self.driver.find_element(*self.list_title_textbox)
