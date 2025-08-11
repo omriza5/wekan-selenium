@@ -39,7 +39,7 @@ class BoardPage:
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_list")
-            print(f"Error adding list '{list_name}': {e}")
+            print(f"***** DOM: ",self.driver.page_source)
             
     
     def get_list_names(self):
