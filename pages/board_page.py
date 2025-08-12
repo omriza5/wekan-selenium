@@ -1,4 +1,3 @@
-import time
 from selenium.webdriver.common.by import By
 from utils.screenshot import take_screenshot
 from selenium.webdriver.support.ui import WebDriverWait

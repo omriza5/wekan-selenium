@@ -1,6 +1,5 @@
 import unittest
 from selenium import webdriver
-import time
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from utils.config import Config

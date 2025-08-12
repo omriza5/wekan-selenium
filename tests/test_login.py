@@ -1,5 +1,4 @@
 import unittest
-import os
 from selenium import webdriver
 from pages.login_page import LoginPage
 from utils.config import Config
