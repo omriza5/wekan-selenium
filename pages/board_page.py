@@ -69,7 +69,6 @@ class BoardPage:
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_card")
-            print("**** DOM: ", self.driver.page_source)
 
     def get_list_selector(self, list_name):
         """
