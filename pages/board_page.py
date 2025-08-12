@@ -14,7 +14,7 @@ class BoardPage:
         self.close_list_dialog_button = (By.CSS_SELECTOR, ".fa-times-thin")
         self.list_name_elements = (By.CSS_SELECTOR, ".list-header-name .viewer p")
         self.add_card_to_top_button = (By.CSS_SELECTOR, "a.js-add-card.list-header-plus-top[title='Add Card to Top of List']")
-        self.add_card_to_bottom_button = (By.CSS_SELECTOR, "a.open-minicard-composer.js-card-composer.js-open-inlined-form[title='Add Card to Bottom of List']")
+        self.add_card_to_bottom_button = (By.CSS_SELECTOR, "a.open-minicard-composer.js-card-composer.js-open-inlined-form")
         self.save_card_button = (By.CSS_SELECTOR, "div.add-controls button.primary.confirm[type='submit']")
         self.card_title_textbox = (By.CSS_SELECTOR, "textarea.minicard-composer-textarea.js-card-title")
 
