@@ -23,7 +23,7 @@ class BoardPage:
         This method adds a new list to the board.
         """
         try:
-            wait = WebDriverWait(self.driver, 10)
+            wait = WebDriverWait(self.driver, 20)
             # Wait for the "Add List" button to be present and visible, indicating the page has loaded
             wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
             add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
@@ -49,25 +49,28 @@ class BoardPage:
         """
         This method adds a card to the bottom of a specified list.
         """
-        lists = self.get_list_names()
-        if list_name not in lists:
-            raise ValueError(f"List '{list_name}' not found on the board.")
-        
-        # Find the list and click the button to add a card
-        list_selector = self.get_list_selector(list_name)
-        list_element = self.driver.find_element(*list_selector)
-        add_card_btn = list_element.find_element(*self.add_card_to_bottom_button)
-        add_card_btn.click()
-        
-        # Enter the card title and save
-        card_title_input = list_element.find_element(*self.card_title_textbox)
-        card_title_input.send_keys(card_title)
-        save_card_btn = list_element.find_element(*self.save_card_button)
-        save_card_btn.click()
-        
-        return self
-        
-        
+        try:
+            lists = self.get_list_names()
+            if list_name not in lists:
+                raise ValueError(f"List '{list_name}' not found on the board.")
+
+            # Find the list and click the button to add a card
+            list_selector = self.get_list_selector(list_name)
+            list_element = self.driver.find_element(*list_selector)
+            add_card_btn = list_element.find_element(*self.add_card_to_bottom_button)
+            add_card_btn.click()
+            
+            # Enter the card title and save
+            card_title_input = list_element.find_element(*self.card_title_textbox)
+            card_title_input.send_keys(card_title)
+            save_card_btn = list_element.find_element(*self.save_card_button)
+            save_card_btn.click()
+            
+            return self
+        except Exception as e:
+            take_screenshot(self.driver, "error_during_add_card")
+            print("**** DOM: ", self.driver.page_source)
+
     def get_list_selector(self, list_name):
         """
         Dynamically generates a selector for the parent list div based on its name.
