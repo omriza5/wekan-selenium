@@ -24,8 +24,7 @@ class BoardPage:
         """
         try:
             take_screenshot(self.driver, "before_add_list")
-            wait = WebDriverWait(self.driver, 60)
-            print(f"***** DOM TRY: ",self.driver.page_source)
+            wait = WebDriverWait(self.driver, 10)
             # Wait for the "Add List" button to be present and visible, indicating the page has loaded
             wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
             add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
@@ -42,7 +41,6 @@ class BoardPage:
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_list")
-            print(f"***** DOM ERROR: ",self.driver.page_source)
             
     
     def get_list_names(self):
