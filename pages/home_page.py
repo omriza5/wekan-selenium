@@ -23,6 +23,7 @@ class HomePage:
         # Directly find and click the "Add Board" link
         time.sleep(2)
         take_screenshot(self.driver, "before_add_board")
+        print("DOM 1:",  self.driver.page_source)
         board_link = self.driver.find_element(*self.add_board_link)
         board_link.click()
         
@@ -31,10 +32,12 @@ class HomePage:
         board_title_field.clear()
         board_title_field.send_keys(board_title)
         take_screenshot(self.driver, "before_add_board 1")
+        print("DOM 2:",  self.driver.page_source)
         board_add_btn = self.driver.find_element(*self.add_board_btn)
         board_add_btn.click()
         time.sleep(2)
         take_screenshot(self.driver, "before_add_board 2")
+        print("DOM 3:",  self.driver.page_source)
         return BoardPage(self.driver)
     
 
