@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from utils.screenshot import take_screenshot
 from selenium.webdriver.support.ui import WebDriverWait
+import time
 from selenium.webdriver.support import expected_conditions as EC
 
 class BoardPage:
@@ -34,7 +35,7 @@ class BoardPage:
             save_btn.click()
             close_dialog_btn = self.driver.find_element(*self.close_list_dialog_button)
             close_dialog_btn.click()
-            
+            time.sleep(2)
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_list")
@@ -64,7 +65,7 @@ class BoardPage:
             card_title_input.send_keys(card_title)
             save_card_btn = list_element.find_element(*self.save_card_button)
             save_card_btn.click()
-            
+            time.sleep(2)
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_card")

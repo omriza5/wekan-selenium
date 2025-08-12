@@ -1,6 +1,7 @@
+import time
 from selenium.webdriver.common.by import By
 from pages.board_page import BoardPage
-
+from utils.screenshot import take_screenshot
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
@@ -20,6 +21,8 @@ class HomePage:
     
     def create_board(self, board_title):
         # Directly find and click the "Add Board" link
+        time.sleep(2)
+        take_screenshot(self.driver, "before_add_board")
         board_link = self.driver.find_element(*self.add_board_link)
         board_link.click()
         
@@ -27,10 +30,11 @@ class HomePage:
         board_title_field = self.driver.find_element(*self.board_title_textbox)
         board_title_field.clear()
         board_title_field.send_keys(board_title)
-        
+        take_screenshot(self.driver, "before_add_board 1")
         board_add_btn = self.driver.find_element(*self.add_board_btn)
         board_add_btn.click()
-        
+        time.sleep(2)
+        take_screenshot(self.driver, "before_add_board 2")
         return BoardPage(self.driver)
     
 
