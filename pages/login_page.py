@@ -1,4 +1,3 @@
-import time
 from selenium.webdriver.common.by import By
 class LoginPage:
     def __init__(self, driver):
@@ -36,5 +35,5 @@ class LoginPage:
     
         # Lazy import to avoid circular dependency
         from pages.home_page import HomePage
-        time.sleep(2)
+        
         return HomePage(self.driver)
