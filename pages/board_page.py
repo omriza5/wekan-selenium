@@ -23,20 +23,20 @@ class BoardPage:
         """
         try:
             wait = WebDriverWait(self.driver, 20)
-            take_screenshot(self.driver, "before_add_list")
+
             # Wait for the "Add List" button to be present and visible, indicating the page has loaded
             wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
             add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
             add_list_btn.click()
 
-            take_screenshot(self.driver, "after_add_list_click")
             list_title = self.driver.find_element(*self.list_title_textbox)
             list_title.send_keys(list_name)
             save_btn = self.driver.find_element(*self.save_list_button)
             save_btn.click()
+            
             close_dialog_btn = self.driver.find_element(*self.close_list_dialog_button)
             close_dialog_btn.click()
-            take_screenshot(self.driver, "after_close_list_dialog")
+            
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_list")
