@@ -60,6 +60,7 @@ class TestLogin(unittest.TestCase):
                       .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
                       .create_board("Test Board")
                       .add_list("To Do")
+                      .add_list("In Progress")
                       .add_card_to_bottom("To Do", "Implement feature X"))
 
         # Verify the card was added
