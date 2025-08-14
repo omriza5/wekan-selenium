@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.board_page import BoardPage
+from utils.screenshot import take_screenshot
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
@@ -8,7 +9,8 @@ class HomePage:
         self.password = "123456"
         self.add_board_link = (By.CLASS_NAME, "js-add-board")
         self.board_title_textbox = (By.CLASS_NAME, "js-new-board-title")
-        self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
+        # self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
+        self.add_board_btn = (By.CSS_SELECTOR, "input[value='Create']")
     
     def is_header_displayed(self):
         """
@@ -18,19 +20,26 @@ class HomePage:
         return header_element.is_displayed()
     
     def create_board(self, board_title):
-        # Directly find and click the "Add Board" link
-        board_link = self.driver.find_element(*self.add_board_link)
-        board_link.click()
-        
-        # Find and fill the board title field
-        board_title_field = self.driver.find_element(*self.board_title_textbox)
-        board_title_field.clear()
-        board_title_field.send_keys(board_title)
-        
-        board_add_btn = self.driver.find_element(*self.add_board_btn)
-        board_add_btn.click()
-        
-        return BoardPage(self.driver)
-    
+        try:
+            take_screenshot(self.driver, "before_add_board")
+            # Wait for the "Add Board" link to be clickable
+            self.driver.implicitly_wait(10)
+            # Directly find and click the "Add Board" link
+            board_link = self.driver.find_element(*self.add_board_link)
+            board_link.click()
+            
+            # Find and fill the board title field
+            board_title_field = self.driver.find_element(*self.board_title_textbox)
+            board_title_field.clear()
+            board_title_field.send_keys(board_title)
+            
+            board_add_btn = self.driver.find_element(*self.add_board_btn)
+            board_add_btn.click()
+            
+            return BoardPage(self.driver)
+        except Exception as e:
+            take_screenshot(self.driver, "error_during_board_creation")
+            print(f"Error occurred while waiting for Add Board link: {e}")
+
 
 
