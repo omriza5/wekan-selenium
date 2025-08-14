@@ -2,7 +2,6 @@ import unittest
 from selenium import webdriver
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
-from utils.browser_info import log_browser_info
 from utils.config import Config
 from pages.board_page import BoardPage
 from utils.selenium_config import get_chrome_options
@@ -30,7 +29,6 @@ class TestLogin(unittest.TestCase):
         """
         This method tests the creation of a board.
         """
-        log_browser_info(self.driver)
         login_page = LoginPage(self.driver)
         board_page = (login_page
                       .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
