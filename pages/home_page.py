@@ -9,8 +9,7 @@ class HomePage:
         self.password = "123456"
         self.add_board_link = (By.CLASS_NAME, "js-add-board")
         self.board_title_textbox = (By.CLASS_NAME, "js-new-board-title")
-        # self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
-        self.add_board_btn = (By.CSS_SELECTOR, "input[value='Create']")
+        self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
     
     def is_header_displayed(self):
         """
@@ -21,7 +20,6 @@ class HomePage:
     
     def create_board(self, board_title):
         try:
-            take_screenshot(self.driver, "before_add_board")
             # Wait for the "Add Board" link to be clickable
             self.driver.implicitly_wait(10)
             # Directly find and click the "Add Board" link
@@ -39,7 +37,7 @@ class HomePage:
             return BoardPage(self.driver)
         except Exception as e:
             take_screenshot(self.driver, "error_during_board_creation")
-            print(f"Error occurred while waiting for Add Board link: {e}")
+            
 
 
 
