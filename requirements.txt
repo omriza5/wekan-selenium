@@ -1,3 +1,7 @@
 selenium
 pytest
 allure-pytest
+anthropic
+beautifulsoup4
+lxml
+dotenv
