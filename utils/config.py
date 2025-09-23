@@ -17,7 +17,7 @@ DEFAULT_HEADLESS = "false"
 DEFAULT_WEKAN_URL = "http://localhost"
 DEFAULT_TEST_NAME = "default_test_name"
 class Config:
-    BASE_URL = os.environ.get(WEKAN_URL, DEFAULT_WEKAN_URL)
+    BASE_URL = os.getenv(WEKAN_URL, DEFAULT_WEKAN_URL)
     LOGIN_PATH = '/sign-in'
     LOGIN_PATH_TEXT = 'sign-in'
     TEST_USERNAME = 'testUsername'
