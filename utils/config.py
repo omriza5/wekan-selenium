@@ -18,7 +18,6 @@ DEFAULT_WEKAN_URL = "http://localhost"
 DEFAULT_TEST_NAME = "default_test_name"
 class Config:
     BASE_URL = os.getenv(WEKAN_URL, DEFAULT_WEKAN_URL)
-    print("OMRI_ZAHER: ",BASE_URL)
     LOGIN_PATH = '/sign-in'
     LOGIN_PATH_TEXT = 'sign-in'
     TEST_USERNAME = 'testUsername'
