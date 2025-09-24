@@ -8,6 +8,7 @@ HEADLESS = "HEADLESS"
 WEKAN_URL = "WEKAN_URL"
 TEST_NAME = "TEST_NAME"
 ANTHROPIC_API_KEY = "ANTHROPIC_API_KEY"
+ALLURE_SUITE = "ALLURE_SUITE"
 
 # Default values
 DEFAULT_BROWSER = "chrome"
@@ -15,7 +16,7 @@ DEFAULT_SCREEN_WIDTH = "1920"
 DEFAULT_SCREEN_HEIGHT = "1080"
 DEFAULT_HEADLESS = "false"
 DEFAULT_WEKAN_URL = "http://localhost"
-DEFAULT_TEST_NAME = "default_test_name"
+DEFAULT_SUITE_NAME = "default_suite_name"
 class Config:
     BASE_URL = os.getenv(WEKAN_URL, DEFAULT_WEKAN_URL)
     LOGIN_PATH = '/sign-in'
@@ -37,6 +38,10 @@ class Config:
     @classmethod
     def screen_height(cls):
         return int(os.getenv(SCREEN_HEIGHT, DEFAULT_SCREEN_HEIGHT))
+    
+    @classmethod
+    def suite_name(cls):
+        return os.getenv(ALLURE_SUITE, DEFAULT_SUITE_NAME)
 
     @classmethod
     def headless(cls):
