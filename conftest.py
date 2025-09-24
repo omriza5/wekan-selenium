@@ -12,3 +12,8 @@ def pytest_runtest_setup(item):
         allure.dynamic.suite(f"{suite_name} [{browser} {resolution}]")
     elif suite_name:
         allure.dynamic.suite(suite_name)
+        
+def pytest_itemcollected(item):
+    browser = Config.browser()
+    resolution = f"{Config.screen_width()}x{Config.screen_height()}"
+    item._nodeid += f"::{browser}-{resolution}"
