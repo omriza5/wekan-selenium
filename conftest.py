@@ -4,7 +4,7 @@ from utils.config import Config
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_runtest_setup(item):
-    suite_name = Config.suite_name() if hasattr(Config, "suite_name") else None
+    suite_name = Config.suite_name()
     browser = Config.browser()
     resolution = f"{Config.screen_width()}x{Config.screen_height()}"
     # Compose a unique suite name per matrix job
