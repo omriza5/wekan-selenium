@@ -1,9 +1,11 @@
 from selenium.webdriver.common.by import By
-from pages.board_page import BoardPage
 from utils.screenshot import take_screenshot
+from utils.page_factory import get_board_page
+from utils.config import Config
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
+        self.page_board = get_board_page(driver, Config.screen_width())
         self.header_main_bar = (By.ID, "header-main-bar")
         self.username = "omriza5@gmail.com"
         self.password = "123456"
@@ -34,7 +36,7 @@ class HomePage:
             board_add_btn = self.driver.find_element(*self.add_board_btn)
             board_add_btn.click()
             
-            return BoardPage(self.driver)
+            return self.page_board
         except Exception as e:
             take_screenshot(self.driver, "error_during_board_creation")
             

@@ -2,13 +2,14 @@ import unittest
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from utils.config import Config
-from pages.board_page import BoardPage
 from utils.driver_factory import get_driver
+from utils.page_factory import get_board_page   
   
-class TestLogin(unittest.TestCase):
+class TestHome(unittest.TestCase):
     def setUp(self):
         self.driver = get_driver()
         self.home_page = HomePage(self.driver)
+        self.board_page = get_board_page(self.driver, Config.screen_width())
         self.driver.implicitly_wait(10)
     
     def tearDown(self):
@@ -30,7 +31,8 @@ class TestLogin(unittest.TestCase):
         board_page = (login_page
                       .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
                       .create_board("Test Board"))
-        self.assertIsInstance(board_page, BoardPage, "board_page is not an instance of BoardPage")
+        
+        self.assertEqual(type(board_page).__name__, type(self.board_page).__name__, "board_page is not an instance of BoardPage")
     
     def test_add_list_to_board(self):
         """

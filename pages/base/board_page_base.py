@@ -1,12 +1,14 @@
 from selenium.webdriver.common.by import By
-from utils.screenshot import take_screenshot
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utils.dom_xpath_locator import DOMXPathLocator
+from utils.screenshot import take_screenshot
 
-class BoardPage:
+class BoardPageBase: 
     def __init__(self, driver):
         self.driver = driver
         self.driver.implicitly_wait(10)
+        self.wait = WebDriverWait(driver, 10)
         self.add_list_button = (By.CSS_SELECTOR, ".open-list-composer.js-open-inlined-form")
         self.list_title_textbox = (By.CSS_SELECTOR, "input.list-name-input.full-line")
         self.save_list_button = (By.CSS_SELECTOR, "button.primary.confirm[type='submit']")
@@ -51,21 +53,27 @@ class BoardPage:
         This method adds a card to the bottom of a specified list.
         """
         try:
+            locator = DOMXPathLocator(self.driver,self.driver.current_url)
             lists = self.get_list_names()
             if list_name not in lists:
                 raise ValueError(f"List '{list_name}' not found on the board.")
 
-            # Find the list and click the button to add a card
-            list_selector = self.get_list_selector(list_name)
-            list_element = self.driver.find_element(*list_selector)
-            add_card_btn = list_element.find_element(*self.add_card_to_bottom_button)
+            list_element = locator.find_element_xpath(f'clickable element to add new card in \'{list_name}\' list')
+            
+            # Device-specific preparation (mobile needs chevron click)
+            self._prepare_list_for_card_addition(list_element)
+            
+            # add_card_btn = list_element.find_element(*self.add_card_to_bottom_button)
+            add_card_btn = self.wait.until(
+                EC.element_to_be_clickable(self.add_card_to_bottom_button)
+            )
             add_card_btn.click()
             
             # Enter the card title and save
-            card_title_input = list_element.find_element(*self.card_title_textbox)
+            card_title_input = self.driver.find_element(*self.card_title_textbox)
             card_title_input.send_keys(card_title)
-            
-            save_card_btn = list_element.find_element(*self.save_card_button)
+
+            save_card_btn = self.driver.find_element(*self.save_card_button)
             save_card_btn.click()
             return self
         except Exception as e:
@@ -93,3 +101,13 @@ class BoardPage:
         # Extract and return the text of each card
         return [card.text.strip() for card in card_elements]
 
+    # Desktop doesn't need any preparation
+    def _prepare_list_for_card_addition(self, list_element):
+        """
+        Prepare the list for card addition. Override in subclasses for device-specific behavior.
+        Default implementation does nothing (desktop behavior).
+        """
+        pass  
+    
+
+            

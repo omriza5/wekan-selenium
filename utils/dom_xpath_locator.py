@@ -22,7 +22,7 @@ class DOMXPathLocator:
             WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
-            
+            self._wait_for_spinner_to_disappear()
             page_source = self.driver.page_source
             
             # Use BeautifulSoup to remove script and style elements to reduce noise
@@ -39,14 +39,14 @@ class DOMXPathLocator:
     def get_xpath(self, dom_content, element_description):
         prompt = f"""You are a webpage XPath extraction AI assistant. 
         
-Given the following HTML DOM and a description of the element to locate, return ONLY the exact XPath selector as plain text with no additional formatting, explanations, or code blocks.
+                    Given the following HTML DOM and a description of the element to locate, return ONLY the exact XPath selector as plain text with no additional formatting, explanations, or code blocks.
 
-DOM:
-{dom_content}
+                    DOM:
+                    {dom_content}
 
-Element to locate: {element_description}
+                    Element to locate: {element_description}
 
-Return only the XPath selector:"""
+                    Return only the XPath selector:"""
 
         try:
             response = self.client.messages.create(
@@ -81,13 +81,30 @@ Return only the XPath selector:"""
         except Exception as e:
             return False, 0
         
-    def find_element_by_xpath(self, element_description):
+    def find_element_xpath(self, element_description):
         try:
+              # Wait for 2 seconds to ensure the page is fully loaded
             dom = self.get_page_dom(self.page_url)
-            xpath = self.locator.get_xpath(dom, element_description)
-            is_valid = self.locator.validate_xpath(xpath)
+            xpath = self.get_xpath(dom, element_description)
+            is_valid = self.validate_xpath(xpath)
             
             if is_valid:
                 return self.driver.find_element(By.XPATH, xpath)
         except Exception as e:
             raise Exception(f"Error finding element by XPath - {xpath}: {str(e)}")
+        
+    
+    def _wait_for_spinner_to_disappear(self):
+        """Wait for the Wekan loading spinner to disappear from the DOM"""
+        wait = WebDriverWait(self.driver, 30)  
+        
+        try:
+            print("Waiting for loading spinner to disappear...")
+            
+            # Wait until the spinner is not present in the DOM
+            wait.until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".sk-spinner"))
+            )
+                
+        except Exception as e:
+            print(f"Warning: Spinner wait timeout or spinner not found: {str(e)}")
