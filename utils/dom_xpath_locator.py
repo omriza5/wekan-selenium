@@ -31,7 +31,7 @@ class DOMXPathLocator:
             for script in soup(["script", "style"]):
                 script.extract()
             
-            return str(soup)
+            return str(soup.body)
             
         except Exception as e:
             raise Exception(f"Error loading page: {str(e)}")
@@ -50,8 +50,8 @@ class DOMXPathLocator:
 
         try:
             response = self.client.messages.create(
-                model="claude-3-7-sonnet-20250219",
-                max_tokens=100,
+                model="claude-sonnet-4-20250514",
+                max_tokens=1024,
                 messages=[
                     {
                         "role": "user",
