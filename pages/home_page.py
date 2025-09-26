@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from utils.screenshot import take_screenshot
 from utils.page_factory import get_board_page
 from utils.config import Config
+
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
@@ -12,13 +13,19 @@ class HomePage:
         self.add_board_link = (By.CLASS_NAME, "js-add-board")
         self.board_title_textbox = (By.CLASS_NAME, "js-new-board-title")
         self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
+        self.member_menu_open_btn = (By.CLASS_NAME, "header-user-bar-avatar")
+        self.member_menu_close_btn = (By.CLASS_NAME, "close-btn.js-close-pop-over")
+        self.member_settings_title = (By.XPATH, "//span[@class='header-title' and text()='Member Settings']")
     
     def is_header_displayed(self):
         """
         This method checks if the header is displayed on the home page.
         """
-        header_element = self.driver.find_element(*self.header_main_bar)
-        return header_element.is_displayed()
+        try:
+            header_element = self.driver.find_element(*self.header_main_bar)
+            return header_element.is_displayed()
+        except Exception as e:      
+            print(f"Error in is_header_displayed: {e}")
     
     def create_board(self, board_title):
         try:
@@ -39,7 +46,29 @@ class HomePage:
             return self.page_board
         except Exception as e:
             take_screenshot(self.driver, "error_during_board_creation")
+        
+    def open_member_settings_menu(self):
+        try:
+            member_menu_btn = self.driver.find_element(*self.member_menu_open_btn)
+            member_menu_btn.click()
+            return self
+        except Exception as e:
+            print(f"Error in open_member_settings_menu: {e}")
+
+    def close_member_settings_menu(self):
+        try:
+            close_btn = self.driver.find_element(*self.member_menu_close_btn)
+            close_btn.click()
+            return self
+        except Exception as e:
+            print(f"Error in close_member_settings_menu: {e}")
             
+    def is_member_settings_menu_displayed(self):
+        try:
+            menu_title = self.driver.find_element(*self.member_settings_title)
+            return menu_title.is_displayed()
+        except Exception as e:
+            print(f"Error in is_member_settings_menu_displayed: {e}")
 
 
 

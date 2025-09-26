@@ -45,9 +45,12 @@ class BoardPageBase:
             
     
     def get_list_names(self):
-        elements = self.driver.find_elements(*self.list_name_elements)
-        return [el.text.strip() for el in elements]
-    
+        try:
+            elements = self.driver.find_elements(*self.list_name_elements)
+            return [el.text.strip() for el in elements]
+        except Exception as e:
+            take_screenshot(self.driver, "error_during_get_list_names")
+
     def add_card_to_bottom(self, list_name, card_title):
         """
         This method adds a card to the bottom of a specified list.
@@ -83,23 +86,29 @@ class BoardPageBase:
         """
         Dynamically generates a selector for the parent list div based on its name.
         """
-        return (By.XPATH, f"//div[contains(@class, 'list js-list') and .//p[text()='{list_name}']]")
+        try:
+            return (By.XPATH, f"//div[contains(@class, 'list js-list') and .//p[text()='{list_name}']]")
+        except Exception as e:
+            print(f"Error in get_list_selector: {e}")
 
     def get_list_cards_titles(self, list_name):
         """
         Retrieves the titles of all cards in a specified list.
         """
-        # Get the dynamic selector for the parent list div
-        list_selector = self.get_list_selector(list_name)
-        
-        # Find the list element
-        list_element = self.driver.find_element(*list_selector)
-        
-        # Locate all cards within the list
-        card_elements = list_element.find_elements(By.CSS_SELECTOR, ".minicard .minicard-title")
-        
-        # Extract and return the text of each card
-        return [card.text.strip() for card in card_elements]
+        try:
+            # Get the dynamic selector for the parent list div
+            list_selector = self.get_list_selector(list_name)
+            
+            # Find the list element
+            list_element = self.driver.find_element(*list_selector)
+            
+            # Locate all cards within the list
+            card_elements = list_element.find_elements(By.CSS_SELECTOR, ".minicard .minicard-title")
+            
+            # Extract and return the text of each card
+            return [card.text.strip() for card in card_elements]
+        except Exception as e:
+            print(f"Error in get_list_cards_titles: {e}")
 
     # Desktop doesn't need any preparation
     def _prepare_list_for_card_addition(self, list_element):

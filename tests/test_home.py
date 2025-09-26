@@ -65,3 +65,30 @@ class TestHome(unittest.TestCase):
         # Verify the card was added
         card_titles = board_page.get_list_cards_titles("To Do")
         self.assertIn("Implement feature X", card_titles, "Card was not added to the list.")
+          
+    def test_member_setting_menu_open(self):
+        """
+        This method tests the member settings menu functionality.
+        """
+        login_page = LoginPage(self.driver)
+        home_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .open_member_settings_menu())
+                           
+        # Verify the member color was changed
+        is_menu_displayed = home_page.is_member_settings_menu_displayed()
+        self.assertTrue(is_menu_displayed, "Member settings menu is not displayed.")
+    
+    def test_member_setting_menu_close(self):
+        """
+        This method tests the member settings menu functionality.
+        """
+        login_page = LoginPage(self.driver)
+        home_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .open_member_settings_menu()
+                      .close_member_settings_menu())
+                        
+        # Verify the member color was changed
+        is_menu_displayed = home_page.is_member_settings_menu_displayed()
+        self.assertFalse(is_menu_displayed, "Member settings menu is still displayed.")
