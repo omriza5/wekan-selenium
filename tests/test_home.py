@@ -92,3 +92,38 @@ class TestHome(unittest.TestCase):
         # Verify the member color was changed
         is_menu_displayed = home_page.is_member_settings_menu_displayed()
         self.assertFalse(is_menu_displayed, "Member settings menu is still displayed.")
+    
+    def test_notifications_menu_open(self):
+        """
+        This method tests the notifications menu functionality.
+        """
+        login_page = LoginPage(self.driver)
+        home_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .open_notifications_menu())
+                           
+        is_menu_displayed = home_page.is_notifications_menu_displayed()
+        self.assertTrue(is_menu_displayed, "Notifications menu is not displayed.")
+        
+    def test_notifications_menu_close(self):
+        """
+        This method tests the notifications menu functionality.
+        """
+        login_page = LoginPage(self.driver)
+        home_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .open_notifications_menu()
+                      .close_notifications_menu())
+                           
+        is_menu_displayed = home_page.is_notifications_menu_displayed()
+        self.assertFalse(is_menu_displayed, "Notifications menu is still displayed.")
+
+    def test_logout(self):
+        """
+        This method tests the logout functionality.
+        """
+        login_page = LoginPage(self.driver)
+        login_page = (login_page
+                      .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
+                      .logout())
+        self.assertIsInstance(login_page, LoginPage, "Logout did not navigate to login page.")
