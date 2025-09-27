@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from utils.screenshot import take_screenshot
 from utils.page_factory import get_board_page
 from utils.config import Config
@@ -7,6 +9,7 @@ from pages.login_page import LoginPage
 class HomePage:
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
         self.page_board = get_board_page(driver, Config.screen_width())
         self.header_main_bar = (By.ID, "header-main-bar")
         self.username = "omriza5@gmail.com"
@@ -70,7 +73,10 @@ class HomePage:
             
     def is_member_settings_menu_displayed(self):
         try:
-            menu_title = self.driver.find_element(*self.member_settings_title)
+            # menu_title = self.driver.find_element(*self.member_settings_title)
+            menu_title = self.wait.until(
+                EC.visibility_of_element_located(self.member_settings_title)
+            )
             return menu_title.is_displayed()
         except Exception as e:
             print(f"Error in is_member_settings_menu_displayed: {e}")
