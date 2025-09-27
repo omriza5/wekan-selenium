@@ -19,7 +19,7 @@ class HomePage:
         self.add_board_btn = (By.XPATH, "//input[translate(@value, 'CREATE', 'create')='create']")
         self.member_menu_open_btn = (By.CLASS_NAME, "header-user-bar-avatar")
         self.member_menu_close_btn = (By.CLASS_NAME, "close-btn.js-close-pop-over")
-        self.member_settings_title = (By.XPATH, "//span[@class='header-title']")
+        self.member_settings_title = (By.XPATH, "//span[@class='header-title' and contains(translate(text(), 'MEMBER', 'member'), 'member')]")
         self.notification_section = (By.ID,'notifications-drawer')
         self.notifications_menu_open_btn = (By.ID, "notifications")
         self.notifications_menu_close_btn = (By.CLASS_NAME, "fa.fa-times-thin.close")
