@@ -1,11 +1,11 @@
-import os
 from selenium.webdriver.chrome.options import Options
+from utils.config import Config
 
 def get_chrome_options():
     options = Options()
     
     # Check if running in a CI environment (GitHub Actions sets GITHUB_ACTIONS=true)
-    if os.getenv("GITHUB_ACTIONS") == "true" or os.getenv("HEADLESS") == "true":
+    if Config.is_ci_environment() or Config.headless():
         options.add_argument("--headless")  # Run in headless mode
         options.add_argument("--no-sandbox")  # Required for CI environments
         options.add_argument("--disable-dev-shm-usage")  # Prevent shared memory issues

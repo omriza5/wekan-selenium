@@ -60,5 +60,9 @@ class Config:
         return f"{cls.BASE_URL}"
     
     @classmethod
+    def is_ci_environment(cls):
+        return os.getenv("GITHUB_ACTIONS") == "true"
+    
+    @classmethod
     def get_login_url(cls):
         return f"{cls.BASE_URL}{cls.LOGIN_PATH}"
