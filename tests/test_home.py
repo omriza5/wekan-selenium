@@ -75,7 +75,6 @@ class TestHome(unittest.TestCase):
                       .login_with_valid_credentials(Config.VALID_USERNAME, Config.VALID_PASSWORD, Config.get_login_url())
                       .open_member_settings_menu())
                            
-        # Verify the member color was changed
         is_menu_displayed = home_page.is_member_settings_menu_displayed()
         self.assertTrue(is_menu_displayed, "Member settings menu is not displayed.")
     
