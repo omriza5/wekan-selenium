@@ -80,6 +80,7 @@ class HomePage:
             return menu_title.is_displayed()
         except Exception as e:
             print(f"Error in is_member_settings_menu_displayed: {e}")
+            take_screenshot(self.driver, "menu_not_displayed")
     
     def open_notifications_menu(self):
         try:
