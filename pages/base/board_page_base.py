@@ -26,19 +26,21 @@ class BoardPageBase:
         try:
             wait = WebDriverWait(self.driver, 20)
 
-            # Wait for the "Add List" button to be present and visible, indicating the page has loaded
+            # Wait for the "Add List" button to be present and visible
             wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
             add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
             add_list_btn.click()
 
-            list_title = self.driver.find_element(*self.list_title_textbox)
+            # Wait for the list title textbox to be visible
+            list_title = wait.until(EC.visibility_of_element_located(self.list_title_textbox))
             list_title.send_keys(list_name)
-            save_btn = self.driver.find_element(*self.save_list_button)
+
+            # Wait for the save button to be clickable and click
+            save_btn = wait.until(EC.element_to_be_clickable(self.save_list_button))
             save_btn.click()
-            
-            close_dialog_btn = self.driver.find_element(*self.close_list_dialog_button)
+
+            close_dialog_btn = wait.until(EC.element_to_be_clickable(self.close_list_dialog_button))
             close_dialog_btn.click()
-            
             return self
         except Exception as e:
             take_screenshot(self.driver, "error_during_add_list")
@@ -116,7 +118,7 @@ class BoardPageBase:
         Prepare the list for card addition. Override in subclasses for device-specific behavior.
         Default implementation does nothing (desktop behavior).
         """
-        pass  
-    
+        pass
 
-            
+
+
