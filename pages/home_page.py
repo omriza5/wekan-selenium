@@ -98,7 +98,9 @@ class HomePage:
             
     def is_notifications_menu_displayed(self):
         try:
-            notifications_section = self.driver.find_element(*self.notification_section)
+            notifications_section = self.wait.until(
+                EC.visibility_of_element_located(self.notification_section)
+            )
             return notifications_section.is_displayed()
         except Exception as e:
             print(f"Error in is_notifications_menu_displayed: {e}")

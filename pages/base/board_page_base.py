@@ -24,22 +24,20 @@ class BoardPageBase:
         This method adds a new list to the board.
         """
         try:
-            wait = WebDriverWait(self.driver, 20)
-
             # Wait for the "Add List" button to be present and visible
-            wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
-            add_list_btn = wait.until(EC.element_to_be_clickable(self.add_list_button))
+            self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR,".fa-navicon")))
+            add_list_btn = self.wait.until(EC.element_to_be_clickable(self.add_list_button))
             add_list_btn.click()
 
             # Wait for the list title textbox to be visible
-            list_title = wait.until(EC.visibility_of_element_located(self.list_title_textbox))
+            list_title = self.wait.until(EC.visibility_of_element_located(self.list_title_textbox))
             list_title.send_keys(list_name)
 
             # Wait for the save button to be clickable and click
-            save_btn = wait.until(EC.element_to_be_clickable(self.save_list_button))
+            save_btn = self.wait.until(EC.element_to_be_clickable(self.save_list_button))
             save_btn.click()
 
-            close_dialog_btn = wait.until(EC.element_to_be_clickable(self.close_list_dialog_button))
+            close_dialog_btn = self.wait.until(EC.element_to_be_clickable(self.close_list_dialog_button))
             close_dialog_btn.click()
             return self
         except Exception as e:
