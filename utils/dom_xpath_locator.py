@@ -39,14 +39,16 @@ class DOMXPathLocator:
     def get_xpath(self, dom_content, element_description):
         prompt = f"""You are a webpage XPath extraction AI assistant. 
         
-                    Given the following HTML DOM and a description of the element to locate, return ONLY the exact XPath selector as plain text with no additional formatting, explanations, or code blocks.
+                Given the following HTML DOM and a description of the element to locate,
+                return ONLY the exact XPath selector as plain text with no additional formatting, 
+                explanations, or code blocks.
 
-                    DOM:
-                    {dom_content}
+                DOM:
+                {dom_content}
 
-                    Element to locate: {element_description}
+                Element to locate: {element_description}
 
-                    Return only the XPath selector:"""
+                Return only the XPath selector:"""
 
         try:
             response = self.client.messages.create(
