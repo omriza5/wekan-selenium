@@ -85,7 +85,6 @@ class DOMXPathLocator:
         
     def find_element_xpath(self, element_description):
         try:
-              # Wait for 2 seconds to ensure the page is fully loaded
             dom = self.get_page_dom(self.page_url)
             xpath = self.get_xpath(dom, element_description)
             is_valid = self.validate_xpath(xpath)
